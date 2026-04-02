@@ -14,6 +14,7 @@ public class VentanaLogin {
     private final JLabel lblClave = new JLabel("Clave:");
     private final JPasswordField txtClave = new JPasswordField();
     private final JButton btnIngresar = new JButton("Ingresar");
+    private final JButton btnRegistrar = new JButton("Registrarse");
 
     public VentanaLogin() {
         inicializarUsuarios();
@@ -31,7 +32,7 @@ public class VentanaLogin {
     private void configurarVentana() {
         frame.setSize(300, 150 );
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(3, 2, 5, 5));
+        frame.setLayout(new GridLayout(4, 2, 5, 5));
         agregarComponentes();
     }
 
@@ -41,11 +42,13 @@ public class VentanaLogin {
         frame.add(lblClave);
         frame.add(txtClave);
         frame.add(new JLabel(""));
+        frame.add(btnRegistrar);
         frame.add(btnIngresar);
     }
 
     private void configurarEventos() {
         btnIngresar.addActionListener(e -> login());
+        btnRegistrar.addActionListener(e -> abrirRegistro());
     }
 
     public void mostrarVentana() {
@@ -66,6 +69,11 @@ public class VentanaLogin {
         } else {
             mostrarError();
         }
+    }
+
+    private void abrirRegistro() {
+        frame.dispose(); // Cierra el login
+        new VentanaRegistro().mostrarVentana();
     }
 
     private String validarCredenciales(String u, String p) {
