@@ -88,7 +88,7 @@ public class VentanaLogin {
     private void mostrarExito(String nombre) {
         JOptionPane.showMessageDialog(frame, "¡Bienvenido" + nombre + "!");
         frame.dispose();
-        new VentanaSaludo(nombre).mostrarVentana();
+        new VentanaMenu().mostrarVentana();
     }
 
     private void mostrarError() {
