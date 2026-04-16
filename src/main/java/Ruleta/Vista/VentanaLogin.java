@@ -1,4 +1,6 @@
-package Ruleta;
+package Ruleta.Vista;
+
+import Ruleta.Modelo.Usuario;
 
 import javax.swing.*;
 import java.awt.*;

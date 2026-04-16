@@ -1,4 +1,4 @@
-package Ruleta;
+package Ruleta.Vista;
 
 import javax.swing.*;
 import java.awt.*;

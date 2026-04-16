@@ -1,4 +1,4 @@
-package Ruleta;
+package Ruleta.Modelo;
 
 public class Usuario {
     private String username;

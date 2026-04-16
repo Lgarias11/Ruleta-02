@@ -1,4 +1,4 @@
-package Ruleta;
+package Ruleta.Modelo;
 
 import java.util.Random;
 
