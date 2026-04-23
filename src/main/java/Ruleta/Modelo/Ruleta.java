@@ -32,7 +32,12 @@ public class Ruleta {
         if (gano) saldo += monto;
         else saldo -= monto;
     }
-
+    
+    public void recargarSaldo(int monto) {
+        if (monto > 0) {
+            this.saldo += monto;
+        }
+    }
     public int getSaldo() {
         return saldo;
     }

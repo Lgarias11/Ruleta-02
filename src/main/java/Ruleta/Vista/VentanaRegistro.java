@@ -1,12 +1,12 @@
 package Ruleta.Vista;
 
+import Ruleta.Controlador.SessionController;
 import Ruleta.Modelo.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class VentanaRegistro {
-    // --- UI ---
     private final JFrame frame = new JFrame("Registro - Casino Black Cat");
     private final JLabel lblNombre = new JLabel("Nombre Completo:");
     private final JTextField txtNombre = new JTextField();
@@ -16,8 +16,10 @@ public class VentanaRegistro {
     private final JPasswordField txtClave = new JPasswordField();
     private final JButton btnGuardar = new JButton("Guardar");
     private final JButton btnVolver = new JButton("Volver");
+    private final SessionController session;
 
-    public VentanaRegistro() {
+    public VentanaRegistro(SessionController session) {
+        this.session = session;
         configurarVentana();
         configurarEventos();
     }
@@ -75,6 +77,7 @@ public class VentanaRegistro {
 
     private void volverAlLogin() {
         frame.dispose();
-        new VentanaLogin().mostrarVentana();
+
+        new VentanaLogin(session).mostrarVentana();
     }
 }

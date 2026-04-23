@@ -1,5 +1,6 @@
 package Ruleta.Vista;
 
+import Ruleta.Controlador.SessionController;
 import Ruleta.Modelo.Usuario;
 
 import javax.swing.*;
@@ -18,7 +19,11 @@ public class VentanaLogin {
     private final JButton btnIngresar = new JButton("Ingresar");
     private final JButton btnRegistrar = new JButton("Registrarse");
 
-    public VentanaLogin() {
+    // Atributo para almacenar la sesión única del sistema
+    private final SessionController session;
+
+    public VentanaLogin(SessionController session) {
+        this.session = session;
         inicializarUsuarios();
         configurarVentana();
         configurarEventos();
@@ -32,7 +37,7 @@ public class VentanaLogin {
     }
 
     private void configurarVentana() {
-        frame.setSize(300, 150 );
+        frame.setSize(300, 150);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new GridLayout(4, 2, 5, 5));
         agregarComponentes();
@@ -61,13 +66,14 @@ public class VentanaLogin {
     private void login() {
         String u = txtUsuario.getText();
         String p = new String(txtClave.getPassword());
-        String nombre = validarCredenciales(u, p);
-        procesarAcceso(nombre);
+        Usuario usuarioAutenticado = validarCredenciales(u, p);
+        procesarAcceso(usuarioAutenticado);
     }
 
-    private void procesarAcceso(String nombre) {
-        if (!nombre.isEmpty()) {
-            mostrarExito(nombre);
+    private void procesarAcceso(Usuario usuario) {
+        if (usuario != null) {
+            session.setUsuarioActual(usuario);
+            mostrarExito(usuario.getNombre());
         } else {
             mostrarError();
         }
@@ -75,22 +81,22 @@ public class VentanaLogin {
 
     private void abrirRegistro() {
         frame.dispose(); // Cierra el login
-        new VentanaRegistro().mostrarVentana();
+        new VentanaRegistro(session).mostrarVentana();
     }
 
-    private String validarCredenciales(String u, String p) {
+    private Usuario validarCredenciales(String u, String p) {
         for (Usuario usuario : usuarios) {
             if (usuario.validarCredenciales(u, p)) {
-                return usuario.getNombre();
+                return usuario;
             }
         }
-        return "";
+        return null;
     }
 
     private void mostrarExito(String nombre) {
-        JOptionPane.showMessageDialog(frame, "¡Bienvenido" + nombre + "!");
+        JOptionPane.showMessageDialog(frame, "¡Bienvenido " + nombre + "!");
         frame.dispose();
-        new VentanaMenu().mostrarVentana();
+        new VentanaMenu(session).mostrarVentana();
     }
 
     private void mostrarError() {

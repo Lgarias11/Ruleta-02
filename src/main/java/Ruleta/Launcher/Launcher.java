@@ -1,10 +1,16 @@
 package Ruleta.Launcher;
 
+import Ruleta.Controlador.SessionController;
 import Ruleta.Vista.VentanaLogin;
 
 public class Launcher {
+
     public static void main(String[] args) {
-        VentanaLogin menu = new VentanaLogin();
-        menu.mostrarVentana();
+
+        SessionController session = new SessionController();
+
+        VentanaLogin login = new VentanaLogin(session);
+
+        login.mostrarVentana();
     }
 }
