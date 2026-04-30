@@ -17,7 +17,7 @@ public class VentanaRuleta {
     private final JTextField txtMonto = new JTextField("100", 5);
     private final JButton btnGirar = new JButton("Girar");
     private final JButton btnVolver = new JButton("Volver");
-    private final JLabel lblSaldo = new JLabel("Saldo: 1000");
+    private final JLabel lblSaldo = new JLabel("Saldo: 1000"); // Lo actualizaremos en el constructor
     private final JLabel lblResultado =  new JLabel("Esperando.....");
     private final JButton btnRecargar = new JButton("Recargar");
     private final SessionController session;
@@ -26,13 +26,14 @@ public class VentanaRuleta {
     public VentanaRuleta(SessionController session) {
         this.session = session;
 
-        Ruleta ruleta = new Ruleta();
-        this.controlador = new RuletaController(ruleta, session);
+        this.controlador = new RuletaController(session.getMotorRuleta(), session);
 
         configurarVentana();
         armarPanelSuperior();
         armarPanelInferior();
         configurarEventos();
+
+        lblSaldo.setText("Saldo: " + controlador.getSaldoActual());
     }
 
     private void configurarVentana() {

@@ -1,4 +1,4 @@
 package Ruleta.Modelo;
 
-public enum TipoApuesta {
-}
+
+public enum TipoApuesta {ROJO, NEGRO, PAR, IMPAR}

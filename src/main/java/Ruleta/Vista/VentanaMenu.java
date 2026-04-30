@@ -1,6 +1,7 @@
 package Ruleta.Vista;
 
 import Ruleta.Controlador.SessionController;
+import Ruleta.Modelo.Estadisticas; // Asegúrate de importar la clase
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +10,7 @@ public class VentanaMenu {
     private final JFrame frame = new JFrame("RULETA - Menú Principal");
     private final JButton btnJugar = new JButton("Jugar");
     private final JButton btnHistorial = new JButton("Historial");
+    private final JButton btnEstadisticas = new JButton("Estadísticas");
     private final JButton btnSalir = new JButton("Salir");
 
     private final SessionController session;
@@ -30,10 +32,11 @@ public class VentanaMenu {
     }
 
     private void armarSidebar() {
-        JPanel panel = new JPanel(new GridLayout(4, 1, 5, 5));
+        JPanel panel = new JPanel(new GridLayout(5, 1, 5, 5));
         panel.add(new JButton("Inicio"));
         panel.add(btnJugar);
-        panel.add(btnHistorial); // Se usa la variable extraída
+        panel.add(btnHistorial);
+        panel.add(btnEstadisticas);
         panel.add(btnSalir);
         frame.add(panel, BorderLayout.WEST);
     }
@@ -41,6 +44,7 @@ public class VentanaMenu {
     private void configurarEventos() {
         btnJugar.addActionListener(e -> abrirRuleta());
         btnHistorial.addActionListener(e -> abrirHistorial());
+        btnEstadisticas.addActionListener(e -> abrirEstadisticas());
         btnSalir.addActionListener(e -> cerrarSesion());
     }
 
@@ -51,8 +55,13 @@ public class VentanaMenu {
 
     private void abrirHistorial() {
         frame.dispose();
-
         new VentanaHistorial(session).mostrarVentana();
+    }
+
+    private void abrirEstadisticas() {
+        Estadisticas stats = session.getMotorRuleta().getEstadisticas();
+
+        new VentanaEstadisticas(stats).setVisible(true);
     }
 
     private void cerrarSesion() {

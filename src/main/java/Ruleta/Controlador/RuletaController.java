@@ -26,6 +26,9 @@ public class RuletaController {
 
         motor.actualizarSaldo(monto, gano);
 
+
+        motor.getEstadisticas().registrarJugada(gano, apuesta.name());
+
         int montoGanado = gano ? monto * 2 : 0;
 
         Resultado nuevoResultado = new Resultado(numero, color, gano, montoGanado, apuesta);
@@ -41,6 +44,7 @@ public class RuletaController {
     public int getSaldoActual() {
         return motor.getSaldo();
     }
+
     public void recargarSaldo(int monto) {
         motor.recargarSaldo(monto);
     }
