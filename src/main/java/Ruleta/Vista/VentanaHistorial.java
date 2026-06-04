@@ -44,7 +44,8 @@ public class VentanaHistorial {
     }
 
     private void cargarDatos() {
-        List<Resultado> historial = controlador.obtenerHistorialUsuario();
+
+        List<Resultado> historial = session.getMotorRuleta().getEstadisticas().recuperarHistorial();
 
         if (historial != null) {
             for (Resultado r : historial) {

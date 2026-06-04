@@ -2,9 +2,8 @@ package Ruleta.Vista;
 
 import Ruleta.Controlador.RuletaController;
 import Ruleta.Controlador.SessionController;
-import Ruleta.Modelo.Resultado;
-import Ruleta.Modelo.Ruleta;
-import Ruleta.Modelo.TipoApuesta;
+import Ruleta.Modelo.*;
+import Ruleta.Modelo.ApuestaTipo.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,9 +68,8 @@ public class VentanaRuleta {
         try {
             int monto = Integer.parseInt(txtMonto.getText());
             String seleccionStr = cbSeleccion.getSelectedItem().toString().toUpperCase();
-            TipoApuesta apuesta = TipoApuesta.valueOf(seleccionStr);
-
-            Resultado res = controlador.procesarJugada(apuesta, monto);
+            ApuestaBase apuesta = getApuestaBase(seleccionStr, monto);
+            Resultado res = controlador.procesarJugada(apuesta);
 
             String estado = res.isEsVictoria() ? "Ganaste" : "Perdiste";
             lblResultado.setText("Número " + res.getNumeroObtenido() + " (" + res.getColorObtenido() + ") | " + estado);
@@ -83,6 +81,28 @@ public class VentanaRuleta {
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(frame, "Tipo de apuesta no válida.");
         }
+    }
+
+    private static ApuestaBase getApuestaBase(String seleccionStr, int monto) {
+        ApuestaBase apuesta = null;
+        switch (seleccionStr) {
+            case "ROJO":
+                apuesta = new ApuestaRojo(monto);
+                break;
+            case "NEGRO":
+                apuesta = new ApuestaNegro(monto);
+                break;
+            case "PAR":
+                apuesta = new ApuestaPar(monto);
+                break;
+            case "IMPAR":
+                apuesta = new ApuestaImpar(monto);
+                break;
+        }
+        ;
+
+        assert apuesta != null;
+        return apuesta;
     }
 
     private void procesarRecarga() {

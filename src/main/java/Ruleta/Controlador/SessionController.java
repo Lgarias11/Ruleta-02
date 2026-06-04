@@ -2,6 +2,8 @@ package Ruleta.Controlador;
 
 import Ruleta.Modelo.Usuario;
 import Ruleta.Modelo.Ruleta;
+import Ruleta.Modelo.IRepositorioResultados;
+import Ruleta.Modelo.RepositorioArchivo; //hacer cambio aca
 
 public class SessionController {
 
@@ -10,7 +12,10 @@ public class SessionController {
 
     public SessionController() {
         this.usuarioActual = null;
-        this.motorRuleta = new Ruleta();
+
+        IRepositorioResultados repositorio = new RepositorioArchivo();  //y aca
+
+        this.motorRuleta = new Ruleta(repositorio);
     }
 
     public void setUsuarioActual(Usuario usuario) {
@@ -24,7 +29,6 @@ public class SessionController {
     public void cerrarSesion() {
         this.usuarioActual = null;
     }
-
 
     public Ruleta getMotorRuleta() {
         return this.motorRuleta;

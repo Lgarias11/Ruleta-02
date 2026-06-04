@@ -8,8 +8,8 @@ public class Ruleta {
     private int saldo = 1000;
     private Estadisticas estadisticas;
 
-    public Ruleta() {
-        this.estadisticas = new Estadisticas();
+    public Ruleta(IRepositorioResultados repositorio) {
+        this.estadisticas = new Estadisticas(repositorio);
     }
 
     public int generarNum() {
@@ -19,17 +19,6 @@ public class Ruleta {
     public String obtenerColor(int numero) {
         if (numero == 0) return "Verde";
         return (numero % 2 == 0) ? "Rojo" : "Negro";
-    }
-
-    public String obtenerParidad(int numero) {
-        if (numero == 0) return "Cero";
-        return (numero % 2 == 0) ? "Par" : "Impar";
-    }
-
-    public boolean esGanador(int numero, String tipo, String seleccion) {
-        if (tipo.equals("Color")) return obtenerColor(numero).equals(seleccion);
-        if (tipo.equals("Paridad")) return obtenerParidad(numero).equals(seleccion);
-        return false;
     }
 
     public void actualizarSaldo(int monto, boolean gano) {
@@ -46,7 +35,7 @@ public class Ruleta {
     public int getSaldo() {
         return saldo;
     }
-    
+
     public Estadisticas getEstadisticas() {
         return estadisticas;
     }

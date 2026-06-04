@@ -6,13 +6,15 @@ public class Resultado {
     private boolean esVictoria;
     private int montoGanado;
 
-    private TipoApuesta tipoApuesta;
 
-    public Resultado(int numeroObtenido, String colorObtenido, boolean esVictoria, int montoGanado, TipoApuesta tipoApuesta) {
+    private String tipoApuesta;
+
+    public Resultado(int numeroObtenido, String colorObtenido, boolean esVictoria, int montoGanado, String tipoApuesta) {
         this.numeroObtenido = numeroObtenido;
         this.colorObtenido = colorObtenido;
         this.esVictoria = esVictoria;
         this.montoGanado = montoGanado;
+
         this.tipoApuesta = tipoApuesta;
     }
 
@@ -32,7 +34,7 @@ public class Resultado {
         return montoGanado;
     }
 
-    public TipoApuesta getTipoApuesta() {
+    public String getTipoApuesta() {
         return tipoApuesta;
     }
 }

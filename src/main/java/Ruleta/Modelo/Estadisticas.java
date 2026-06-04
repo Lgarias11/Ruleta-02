@@ -1,9 +1,13 @@
 package Ruleta.Modelo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Estadisticas {
+
+    private IRepositorioResultados repositorio;
     private int totalJugadas;
     private int victorias;
     private double porcentajeVictorias;
@@ -12,7 +16,8 @@ public class Estadisticas {
     private int rachaActual;
     private Map<String, Integer> frecuenciaApuestas;
 
-    public Estadisticas() {
+    public Estadisticas(IRepositorioResultados repositorio) {
+        this.repositorio = repositorio;
         this.totalJugadas = 0;
         this.victorias = 0;
         this.porcentajeVictorias = 0.0;
@@ -60,4 +65,19 @@ public class Estadisticas {
     public double getPorcentajeVictorias() { return porcentajeVictorias; }
     public int getRachaMaxima() { return rachaMaxima; }
     public String getTipoMasJugado() { return tipoMasJugado; }
+
+
+    public void guardarEnHistorial(Resultado resultado) {
+        if (repositorio != null) {
+            repositorio.guardarResultado(resultado);
+        }
+    }
+
+    public List<Resultado> recuperarHistorial() {
+        if (repositorio != null) {
+            return repositorio.obtenerHistorial();
+        }
+        // Si por alguna razón no hay repositorio, devolvemos una lista vacía para no romper nada
+        return new ArrayList<>();
+    }
 }
