@@ -19,7 +19,6 @@ public class VentanaLogin {
     private final JButton btnIngresar = new JButton("Ingresar");
     private final JButton btnRegistrar = new JButton("Registrarse");
 
-    // Atributo para almacenar la sesión única del sistema
     private final SessionController session;
 
     public VentanaLogin(SessionController session) {
@@ -64,9 +63,9 @@ public class VentanaLogin {
     }
 
     private void login() {
-        String u = txtUsuario.getText();
-        String p = new String(txtClave.getPassword());
-        Usuario usuarioAutenticado = validarCredenciales(u, p);
+        String user = txtUsuario.getText();
+        String password = new String(txtClave.getPassword());
+        Usuario usuarioAutenticado = validarCredenciales(user, password);
         procesarAcceso(usuarioAutenticado);
     }
 
@@ -84,9 +83,9 @@ public class VentanaLogin {
         new VentanaRegistro(session).mostrarVentana();
     }
 
-    private Usuario validarCredenciales(String u, String p) {
+    private Usuario validarCredenciales(String user, String password) {
         for (Usuario usuario : usuarios) {
-            if (usuario.validarCredenciales(u, p)) {
+            if (usuario.validarCredenciales(user, password)) {
                 return usuario;
             }
         }

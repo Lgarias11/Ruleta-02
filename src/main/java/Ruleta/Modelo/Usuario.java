@@ -17,8 +17,13 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public boolean validarCredenciales(String u, String p) {
-        return this.username.equals(u) && this.password.equals(p);
+    public boolean validarCredenciales(String user, String password) {
+        if (this.username == null || user == null) return false;
+        return this.username.equals(user) && this.password.equals(password);
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getNombre() {

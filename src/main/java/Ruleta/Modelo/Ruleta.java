@@ -1,14 +1,19 @@
 package Ruleta.Modelo;
 
 import java.util.Random;
+import Ruleta.Modelo.ApuestaTipo.ApuestaBase;
 
 public class Ruleta {
     public static final int numero_max = 36;
     private final Random random = new Random();
-    private int saldo = 1000;
+    private int saldo;
     private Estadisticas estadisticas;
 
-    public Ruleta(IRepositorioResultados repositorio) {
+    public Ruleta(IRepositorioResultados repositorio, int saldoInicial) {
+        if (saldoInicial < 0) {
+            throw new IllegalArgumentException("Saldo inicial inválido");
+        }
+        this.saldo = saldoInicial;
         this.estadisticas = new Estadisticas(repositorio);
     }
 
@@ -38,5 +43,14 @@ public class Ruleta {
 
     public Estadisticas getEstadisticas() {
         return estadisticas;
+    }
+
+    public void validarApuesta(ApuestaBase apuesta)  {
+        if (apuesta == null) {
+            throw new IllegalArgumentException("Apuesta requerida");
+        }
+        if (apuesta.getMonto() > this.saldo) {
+            throw new IllegalArgumentException("Saldo insuficiente");
+        }
     }
 }

@@ -28,6 +28,10 @@ public class Estadisticas {
     }
 
     public void registrarJugada(boolean esVictoria, String tipoApuesta) {
+        if (tipoApuesta == null) {
+            return;
+        }
+        
         this.totalJugadas++;
 
         if (esVictoria) {
@@ -77,7 +81,6 @@ public class Estadisticas {
         if (repositorio != null) {
             return repositorio.obtenerHistorial();
         }
-        // Si por alguna razón no hay repositorio, devolvemos una lista vacía para no romper nada
         return new ArrayList<>();
     }
 }
